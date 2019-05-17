@@ -87,7 +87,7 @@
         tx.executeSql('CREATE TABLE IF NOT EXISTS product (id INTEGER PRIMARY KEY AUTOINCREMENT,kit_id TEXT NULL, product_id TEXT NULL,brazil_code TEXT NULL,new_brazil_code TEXT NULL, image TEXT NULL, price TEXT NULL, representative_price TEXT NULL, description TEXT NOT NULL, category TEXT NOT NULL, color TEXT NOT NULL)');
         tx.executeSql('CREATE TABLE IF NOT EXISTS venda (id INTEGER PRIMARY KEY AUTOINCREMENT,data_criacao TEXT NULL DEFAULT CURRENT_TIMESTAMP, data_finalizacao TEXT NULL DEFAULT CURRENT_TIMESTAMP,finalizada TEXT NULL)');
         tx.executeSql('CREATE TABLE IF NOT EXISTS venda_produto (id INTEGER PRIMARY KEY AUTOINCREMENT,data_criacao TEXT NULL DEFAULT CURRENT_TIMESTAMP, venda_id TEXT NOT NULL, product_id TEXT NOT NULL, qtd TEXT NULL, ativo TEXT DEFAULT 1)');
-      //  tx.executeSql('DELETE FROM user where id > 0');
+        tx.executeSql('DELETE FROM user where id > 0');
 
        tx.executeSql("INSERT INTO product(kit_id, product_id, brazil_code,new_brazil_code,image, price, representative_price, description, category,color) VALUES('1','"+random+"','19283928329', '18763562536', 'aHR0cHM6Ly9mcmFucXVlYWRvLm1vcmFuYS5jb20uYnIvcHBtL2luZGV4LnBocD9yb3V0ZT1wcm9kdWN0L2ltYWdlJndpZHRoPTIwMCZoZWlnaHQ9MjAwJmltYWdlPWRhdGEvMTQ2LzEzLTE0Ni1FUlItMDAxMDItQkstNDAuanBn','11.90', '19.90', 'Brinco muito loko', 'BRINCO', 'DOURADO')");
 
