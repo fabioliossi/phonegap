@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script src="jquery-1.11.3.js"></script>
+  <script src="sweetalert.min.js"></script>
+
+  <script type="text/javascript" src="bootstrap.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="sweetalert.css">
+  <link rel="stylesheet" type="text/css" href="font-awesome.css">
+
+  <meta charset="UTF-8">
+  <title>Venda +</title>
+
+</head>
+<body style="color:#0B2161 !important">
+
+  <div class="container">
+
+    <span class="hide" id="numero_venda"></span>
+
+
+    <div class="row">
+
+      <button id="buscar_produto"  type="button" data-toggle="modal" data-target="#myModal" class="btn btn-block" style="background-color:#66b3ff !important; color:white !important; height:50px; text-align:center">
+        Selecionar produto
+      </button>
+      <br>
+      <div  id="produtos_venda" style="overflow:scroll; height:200px !important">
+
+      </div>
+      <br>
+      <table class="table table-striped table-dark">
+        <thead>
+          <tr>
+            <th scope="col" colspan="3">TOTAL DO PEDIDO</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" colspan="3" style="background-color:white !important">
+              <button id="total_venda" class="btn btn-block"  type="button" style="background-color:black !important; color:white !important; height:50px; font-size:12pt; text-align:center">
+                0.00
+              </button>
+            </th>
+          </tr>
+          <tr>
+            <td style="width:50%">
+              <button id="btn-finaliza" onclick="finalizaVenda();" type="button" class="btn btn-block" style="background-color:green !important; color:white !important; height:50px; text-align:center">
+                Finalizar Venda
+              </button>
+            </td>
+            <td style="width:50%">
+              <button id="btn-cadastrar" onclick="voltarDashboard();" type="button" class="btn btn-block" style="background-color:red !important; color:white !important; height:50px; text-align:center">
+                Cancelar
+              </button>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Lista de produtos</h4>
+        </div>
+        <div class="modal-body" id="conteudo_modal">
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+
+
+
+
+<script type="text/javascript">
+
+$(function() {
+
+
+  $( "#buscar_produto" ).click(function() {
+    $("#conteudo_modal").html('');
+    mostraProdutos();
+  });
+});
+
+
+
+// window.openDatabase("database-name","version","database description","database size in bytes")
+var db = window.openDatabase("tutorialdb", "1.0", "tutorial database", 1000000); //will create database Dummy_DB or open it
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady()
+{
+
+  criarVenda();
+  produtosDaVenda();
+
+}
+
+function criarVenda()
+{
+  db.transaction(function(tx){
+
+    tx.executeSql("INSERT INTO venda(finalizada) VALUES('N')",[], function(tx1,result){
+
+      $("#numero_venda").html(result.insertId);
+
+    });
+
+  });
+}
+
+function limparVendas()
+{
+  db.transaction(function(tx){
+
+    tx.executeSql("DELETE FROM venda_produto WHERE venda_id in (SELECT id FROM venda WHERE finalizada = 'N' and id > 0) and id > 0 ",[], function(tx1,result){
+
+    });
+
+    tx.executeSql("DELETE FROM venda WHERE finalizada = 'N' AND id > 0 ",[], function(tx1,result){
+
+    });
+
+  });
+}
+
+function finalizaVenda()
+{
+  $venda = $("#numero_venda").html();
+
+  db.transaction(function(tx){
+
+    tx.executeSql("UPDATE venda SET finalizada = 'S', data_finalizacao=datetime('now','localtime') WHERE id = '"+$venda+"';",[], function(tx1,result){
+
+      if(result.rowsAffected > 0)
+      {
+        swal({
+            title: "Tem certeza?",
+            text: "Clique em 'Sim' para registrar a venda.",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#6666ff",
+            confirmButtonText: "Sim",
+            closeOnConfirm: false,
+            html: false
+          }, function(){
+            swal({
+
+                title: "",
+                text: "Venda registrada com sucesso!",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonColor: "#6666ff",
+                confirmButtonText: "OK",
+                closeOnConfirm: false,
+                html: false
+              }, function(){
+
+                voltarDashboard();
+
+              });
+
+          });
+      }
+      else
+      {
+        swal('Erro ao registrar a venda.',result);
+        $("#btn-finaliza").attr('disabled',false);
+        return false;
+      }
+
+
+    });
+
+  },erro_finaliza_venda);
+}
+
+function erro_finaliza_venda(err)
+{
+  $("#btn-finaliza").attr('disabled',false);
+  console.log(err);
+}
+
+function mostraProdutos()
+{
+  $venda = $("#numero_venda").html();
+
+  db.transaction(function(tx){
+
+
+    tx.executeSql("select * from product where product_id not in (select product_id from venda_produto where venda_id = '"+$venda+"' and ativo = '1')",[],function(tx1,result){
+
+      console.log(result);
+      var len = result.rows.length;
+
+      var $table = '<table class="table" style="width:100% !important; font-size:8pt !important"><thead>';
+      $table +='<tr><th scope="col">Imagem</th><th scope="col">Descrição</th><th scope="col">Preço</th><th scope="col">Qtd.</th><th scope="col">Ação</th></tr></thead>';
+
+      for (var i=0; i<len; i++){
+        var product = result.rows.item(i);
+
+        $table += '<tr><td><img width="50px" height="50px" height="5px" src="data:image/jpeg;base64,'+product.image+'"/></td>';
+        $table += '<td>'+product.description+'<br>'+product.color+'<br>'+product.new_brazil_code+'</td>';
+        $table += '<td>'+product.representative_price+'</td>';
+        $table += '<td><input class="qtd_venda_'+product.product_id+'" size="2" value="1" type="text"/></td>';
+        $table += '<td><button type="button" onclick="adicionaProdutoVenda('+product.product_id+')" class="btn btn-primary btn-xs" style="float:center; width:30px; height:30px">+</button></td></tr>';
+
+      }
+
+      $table += "</table>";
+
+      $("#conteudo_modal").html($table);
+
+    });
+  });
+
+}
+
+function voltarDashboard()
+{
+  limparVendas();
+  window.location.replace('./dashboard.html');
+}
+
+function adicionaProdutoVenda(product_id)
+{
+  $venda = $("#numero_venda").html();
+  $qtd = $(".qtd_venda_"+product_id).val();
+
+  db.transaction(function(tx){
+
+    tx.executeSql("INSERT INTO venda_produto(venda_id,product_id, qtd) VALUES('"+$venda+"', '"+product_id+"','"+$qtd+"')",[], function(tx1,result){
+
+
+
+    });
+
+
+    calcularVenda();
+    $("#myModal").modal('toggle');
+
+
+  });
+
+  produtosDaVenda();
+}
+
+function produtosDaVenda()
+{
+  $venda = $("#numero_venda").html();
+  $("#produtos_venda").html('Atualizando...');
+
+  db.transaction(function(tx){
+
+    tx.executeSql("select vp.id as vp_id, p.*, vp.venda_id, vp.qtd as qtd_venda from product p join venda_produto vp on vp.product_id = p.product_id and vp.ativo = 1 and vp.venda_id = '"+$venda+"'",[],function(tx1,result){
+      var len = result.rows.length;
+
+      var $table = '<div><table class="table" style="width:100% !important; font-size:8pt !important"><thead>';
+      $table +='<tr><th scope="col">Imagem</th><th scope="col">Descrição</th><th scope="col">Preço</th><th scope="col">Qtd.</th><th scope="col">Ação</th></tr></thead>';
+
+      for (var i=0; i<len; i++){
+        var product = result.rows.item(i);
+
+        $table += '<tr><td><img width="50px" height="50px" height="5px" src="data:image/jpeg;base64,'+product.image+'"/></td>';
+        $table += '<td>'+product.description+'<br>'+product.color+'<br>'+product.new_brazil_code+'</td>';
+        $table += '<td>'+product.representative_price+'</td>';
+        $table += '<td>'+product.qtd_venda+'</td>';
+        $table += '<td><button type="button" onclick="removeProdutoVenda('+product.vp_id+')" class="btn btn-warning btn-xs" style="float:center; width:30px; height:30px">-</button></td></tr>';
+
+      }
+
+      $table += "<table></div>";
+
+      $("#produtos_venda").html($table);
+
+    });
+  });
+
+}
+
+
+function calcularVenda()
+{
+  $venda = $("#numero_venda").html();
+
+  db.transaction(function(tx){
+
+    tx.executeSql("select sum(p.representative_price*vp.qtd) as total from product p join venda_produto vp on vp.product_id = p.product_id and vp.ativo = 1 and vp.venda_id = '"+$venda+"'",[],function(tx1,result){
+      var len = result.rows.length;
+
+      console.log(result);
+      $("#total_venda").html( Number(result.rows.item(0).total).toFixed(2));
+
+    });
+  });
+
+}
+
+function removeProdutoVenda($vp_id)
+{
+  $venda = $("#numero_venda").html();
+
+  db.transaction(function(tx){
+
+    tx.executeSql("DELETE FROM venda_produto WHERE id = '"+$vp_id+"'",[], function(tx1,result){
+
+
+
+    });
+
+  });
+
+  produtosDaVenda();
+  calcularVenda();
+
+}
+
+
+
+</script>
+
+
+
+</html>

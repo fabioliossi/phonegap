@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script src="jquery-1.11.3.js"></script>
+
+  <script type="text/javascript" src="bootstrap.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'" />
+  <title>Venda +</title>
+
+</head>
+<body style="color:#0B2161 !important">
+
+  <div class="container">
+
+    <h3>Olá <span id="txt_username">Fábio</span></h3>
+    <br>
+
+
+
+  <div class="col-md-12">
+    <div class="form-area">
+      <form role="form">
+            <button id="btn-cadastrar" onclick="novaVenda();" type="button" class="btn btn-block" style="background-color:#005ce6 !important; color:white !important; height:50px; text-align:left">
+              Nova Venda
+            </button>
+            <button id="btn-cadastrar" onclick="mostraProdutos();" type="button" class="btn btn-block" style="background-color:#66b3ff !important; color:white !important; height:50px; text-align:left">
+              Meus Produtos
+            </button>
+            <button id="btn-cadastrar" onclick="cadastrarUsuario();" type="button" class="btn btn-block" style="background-color:#3333cc !important; color:white !important; height:50px; text-align:left">
+              Receber novo kit
+            </button>
+            <button id="btn-cadastrar" onclick="cadastrarUsuario();" type="button" class="btn btn-block" style="background-color:#3333cc !important; color:white !important; height:50px; text-align:left">
+              Acerto
+            </button>
+          </form>
+          <br>
+
+          <div id="alert-login" class="alert alert-danger hide" role="alert">
+            Não foi possível validar seu cadastro. Verifique sua conexão com a internet.
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </body>
+
+  <script type="text/javascript">
+
+  // window.openDatabase("database-name","version","database description","database size in bytes")
+  var db = window.openDatabase("tutorialdb", "1.0", "tutorial database", 1000000); //will create database Dummy_DB or open it
+  document.addEventListener("deviceready", onDeviceReady, false);
+
+  function onDeviceReady() {
+
+    // Create Table
+    //db.transaction(createUserTable, errorCB, successCB);
+
+
+
+    // Select records
+    //fetchData();
+  }
+
+  function mostraProdutos()
+  {
+    window.location.replace('./produtos.html');
+  }
+
+  function novaVenda()
+  {
+
+    window.location.replace('./venda.html');
+  }
+
+</script>
+
+
+
+  </html>
