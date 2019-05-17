@@ -56,6 +56,8 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady() {
 
+  document.addEventListener("backbutton", voltarDashboard, false);
+
   mostraProdutos();
 
 }
@@ -67,17 +69,16 @@ function mostraProdutos()
     tx.executeSql("select * from product",[],function(tx1,result){
       var len = result.rows.length;
 
-      var $table = '<table class="table"><thead>';
-      $table +='<tr><th scope="col">Imagem</th><th scope="col">Descrição</th><th scope="col">Código</th><th scope="col">Cor</th><th scope="col">Preço</th></tr></thead>';
+      var $table = '<table style="font-size:8pt" class="table"><thead>';
+      $table +='<tr><th scope="col">Imagem</th><th scope="col">Descrição/Cor</th><th scope="col">Código</th><th scope="col">Preço</th></tr></thead>';
 
 
       for (var i=0; i<len; i++){
         var product = result.rows.item(i);
 
         $table += '<tr><td><img width="50px" height="50px" height="5px" src="data:image/jpeg;base64,'+product.image+'"/></td>';
-        $table += '<td>'+product.description+'</td>';
+        $table += '<td>'+product.description+'<br>'+product.color+'</td>';
         $table += '<td>'+product.new_brazil_code+'</td>';
-        $table += '<td>'+product.color+'</td>';
         $table += '<td>'+product.representative_price+'</td></tr>';
 
       }
