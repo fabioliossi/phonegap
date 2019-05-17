@@ -1,4 +1,4 @@
-#Wed May 15 15:50:02 BRT 2019
-base.0=C\:\\xampp\\htdocs\\venda\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+#Fri May 17 10:00:32 BRT 2019
+base.0=C\:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.0=classes.dex
 renamed.0=classes.dex
