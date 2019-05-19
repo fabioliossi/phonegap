@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-  <script type="text/javascript" src="cordova.js"></script>
+  <script  src="cordova.js"></script>
   <script src="jquery-1.11.3.js"></script>
   <script src="sweetalert.min.js"></script>
 
@@ -128,6 +128,7 @@ $(function() {
   });
 
   $( "#barcode_produto" ).click(function() {
+
     cordova.plugins.barcodeScanner.scan(function(resultado){
     alert(resultado);
     })

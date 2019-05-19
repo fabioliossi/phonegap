@@ -25,5 +25,6 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <engine name="android" spec="7.1.4" />
+    <plugin name="cordova-plugin-whitelist" />
     <plugin name="cordova-plugin-barcodescanner" spec="0.7.0-21" />
 </widget>
