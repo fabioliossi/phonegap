@@ -129,7 +129,7 @@ $(function() {
 
   $( "#barcode_produto" ).click(function() {
     cordova.plugins.barcodeScanner.scan(function(resultado){
-      console.log(resultado);
+    alert(resultado);
     })
   });
 
