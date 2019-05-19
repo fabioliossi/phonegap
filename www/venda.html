@@ -34,10 +34,20 @@
 
 
     <div class="row">
-
-      <button id="buscar_produto"  type="button" data-toggle="modal" data-target="#myModal" class="btn btn-block" style="background-color:#66b3ff !important; color:white !important; height:50px; text-align:center">
-        Selecionar produto
-      </button>
+      <table width="100%">
+        <tr>
+          <td style="padding:3px">
+            <button id="buscar_produto"  type="button" data-toggle="modal" data-target="#myModal" class="btn btn-block" style="background-color:#66b3ff !important; color:white !important; height:50px; text-align:center">
+              Selecionar produto
+            </button>
+          </td>
+          <td style="padding:3px">
+            <button id="barcode_produto"  type="button"  class="btn btn-block" style="background-color:#66b3ff !important; color:white !important; height:50px; text-align:center">
+              Código de barra
+            </button>
+          </td>
+        </tr>
+      </table>
       <br>
       <div  id="produtos_venda" style="overflow:scroll; height:200px !important">
 
@@ -116,6 +126,13 @@ $(function() {
     $("#conteudo_modal").html('');
     mostraProdutos();
   });
+
+  $( "#barcode_produto" ).click(function() {
+    cordova.plugins.barcodeScanner.scan(function(resultado){
+      console.log(resultado);
+    })
+  });
+
 });
 
 
@@ -127,18 +144,6 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady()
 {
 
-
-    cordova.plugins.barcodeScanner.scan(
-       function (result) {
-           alert("We got a barcode\n" +
-                 "Result: " + result.text + "\n" +
-                 "Format: " + result.format + "\n" +
-                 "Cancelled: " + result.cancelled);
-       },
-       function (error) {
-           alert("Scanning failed: " + error);
-       }
-    );
 
   criarVenda();
   produtosDaVenda();
@@ -186,32 +191,32 @@ function finalizaVenda()
       if(result.rowsAffected > 0)
       {
         swal({
-            title: "Tem certeza?",
-            text: "Clique em 'Sim' para registrar a venda.",
-            type: "warning",
-            showCancelButton: true,
+          title: "Tem certeza?",
+          text: "Clique em 'Sim' para registrar a venda.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#6666ff",
+          confirmButtonText: "Sim",
+          closeOnConfirm: false,
+          html: false
+        }, function(){
+          swal({
+
+            title: "",
+            text: "Venda registrada com sucesso!",
+            type: "success",
+            showCancelButton: false,
             confirmButtonColor: "#6666ff",
-            confirmButtonText: "Sim",
+            confirmButtonText: "OK",
             closeOnConfirm: false,
             html: false
           }, function(){
-            swal({
 
-                title: "",
-                text: "Venda registrada com sucesso!",
-                type: "success",
-                showCancelButton: false,
-                confirmButtonColor: "#6666ff",
-                confirmButtonText: "OK",
-                closeOnConfirm: false,
-                html: false
-              }, function(){
-
-                voltarDashboard();
-
-              });
+            voltarDashboard();
 
           });
+
+        });
       }
       else
       {
