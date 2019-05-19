@@ -24,7 +24,7 @@
     </tr>
   </table>
 
-  
+
 
 
 
@@ -42,15 +42,19 @@
           <button id="btn-cadastrar" onclick="novaVenda();" type="button" class="btn btn-block" style="background-color:#3385ff !important; color:white !important; height:50px; text-align:left">
             Nova Venda
           </button>
-          <button id="btn-cadastrar" onclick="mostraProdutos();" type="button" class="btn btn-block" style="background-color:#66a3ff !important; color:white !important; height:50px; text-align:left">
+          <button id="btn-cadastrar" onclick="mostraProdutos();" type="button" class="btn btn-block" style="background-color:#3399ff !important; color:white !important; height:50px; text-align:left">
             Meus Produtos
           </button>
-          <button id="btn-cadastrar" onclick="cadastrarUsuario();" type="button" class="btn btn-block" style="background-color:#ff471a !important; color:white !important; height:50px; text-align:left">
-            Receber novo kit
+          <button id="btn-cadastrar" onclick="minhasVendas();" type="button" class="btn btn-block" style="background-color:#3399ff !important; color:white !important; height:50px; text-align:left">
+            Minhas Vendas
           </button>
           <button id="btn-cadastrar" onclick="cadastrarUsuario();" type="button" class="btn btn-block" style="background-color:#ff471a !important; color:white !important; height:50px; text-align:left">
             Acerto
           </button>
+          <button id="btn-cadastrar" onclick="cadastrarUsuario();" type="button" class="btn btn-block" style="background-color:#ff471a !important; color:white !important; height:50px; text-align:left">
+            Receber novo kit
+          </button>
+
         </form>
         <br>
 
@@ -100,6 +104,11 @@ function dadosUsuario()
 function mostraProdutos()
 {
   window.location.replace('./produtos.html');
+}
+
+function minhasVendas()
+{
+  window.location.replace('./minhasvendas.html');
 }
 
 function novaVenda()
