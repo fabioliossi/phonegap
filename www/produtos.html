@@ -16,20 +16,18 @@
 </head>
 <body style="color:#0B2161 !important">
 
+  <table  width="100%" style="background-color: #0B2161">
+    <tr>
+      <td style="padding:3px; color:white">
+        <h5> <b> Lista de produtos</b></h5>
+      </td>
+      <td style="padding:3px; color:white">
+        <button type="button" onclick="voltarDashboard()" class="btn btn-primary btn-xs" style="float:right">Voltar</button>
+      </td>
+    </tr>
+  </table>
+
   <div class="container">
-
-    <div class="row">
-      <table width="100%">
-        <tr>
-          <td><h5>Lista de produtos</span></h5></td>
-          <td style="text-align:right">
-            <button type="button" onclick="voltarDashboard()" class="btn btn-primary btn-xs" style="float:right">Voltar</button>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <br>
-
 
 
     <div class="table-responsive">
@@ -94,6 +92,7 @@ function voltarDashboard()
 {
   window.location.replace('./dashboard.html');
 }
+
 
 
 

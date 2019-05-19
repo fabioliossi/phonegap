@@ -17,10 +17,12 @@
 
 </head>
 <body style="color:#0B2161 !important">
-  <table  width="100%" style="background-color: #d1e0e0">
+  <table  width="100%" style="background-color: #0B2161">
     <tr>
-      <td style="padding:3px">
-        <h5> <b> Olá <span id="txt_username">Fábio</span></b></h5>
+      <td style="padding:3px; color:white">
+        <h5> <b> Nova venda</b></h5>
+      </td>
+      <td style="padding:3px; color:white">
       </td>
     </tr>
   </table>
@@ -92,7 +94,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
         </div>
       </div>
 
@@ -110,8 +112,20 @@ $(function() {
 
 
   $( "#buscar_produto" ).click(function() {
-    $("#conteudo_modal").html('');
-    mostraProdutos();
+  //  $("#conteudo_modal").html('');
+  //  mostraProdutos();
+
+  cordova.plugins.barcodeScanner.scan(
+   function (result) {
+       alert("We got a barcode\n" +
+             "Result: " + result.text + "\n" +
+             "Format: " + result.format + "\n" +
+             "Cancelled: " + result.cancelled);
+   },
+   function (error) {
+       alert("Scanning failed: " + error);
+   }
+);
   });
 });
 
