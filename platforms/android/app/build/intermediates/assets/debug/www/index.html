@@ -89,7 +89,12 @@
         tx.executeSql('CREATE TABLE IF NOT EXISTS product (id INTEGER PRIMARY KEY AUTOINCREMENT,kit_id TEXT NULL, product_id TEXT NULL,brazil_code TEXT NULL,new_brazil_code TEXT NULL, image TEXT NULL, price TEXT NULL, representative_price TEXT NULL, description TEXT NOT NULL, category TEXT NOT NULL, color TEXT NOT NULL)');
         tx.executeSql('CREATE TABLE IF NOT EXISTS venda (id INTEGER PRIMARY KEY AUTOINCREMENT,data_criacao TEXT NULL DEFAULT CURRENT_TIMESTAMP, data_finalizacao TEXT NULL DEFAULT CURRENT_TIMESTAMP,finalizada TEXT NULL)');
         tx.executeSql('CREATE TABLE IF NOT EXISTS venda_produto (id INTEGER PRIMARY KEY AUTOINCREMENT,data_criacao TEXT NULL DEFAULT CURRENT_TIMESTAMP, venda_id TEXT NOT NULL, product_id TEXT NOT NULL, qtd TEXT NULL, ativo TEXT DEFAULT 1)');
-        tx.executeSql('DELETE FROM user WHERE id > 0');
+/*        tx.executeSql('DELETE FROM user WHERE id > 0');
+        tx.executeSql('DELETE FROM product WHERE id > 0');
+        tx.executeSql('DELETE FROM venda WHERE id > 0');
+        tx.executeSql('DELETE FROM venda_produto WHERE id > 0');
+        tx.executeSql('DELETE FROM kit WHERE id > 0');*/
+        tx.executeSql('CREATE TABLE IF NOT EXISTS kit (id INTEGER PRIMARY KEY AUTOINCREMENT, kit_id TEXT NULL, data_criacao TEXT NULL DEFAULT CURRENT_TIMESTAMP, data_acerto TEXT NULL,acerto TEXT NULL)');
       }
 
       // Fetch all records
@@ -143,12 +148,13 @@
         ul.appendChild(li);
       }
 
-      function insertUser(user){
+      function insertUser(user)
+      {
 
         db.transaction(function(tx)
         {
 
-          tx.executeSql("INSERT INTO user(user_id, name, customer_id, customer,nivel,cellphone) VALUES ('"+user.id+"', '"+user.name+"', '"+user.customer_id+"', '"+user.customer+"','1', '"+user.cellphone+"')");
+          tx.executeSql("INSERT INTO user(user_id, name, customer_id, customer,nivel,cellphone) VALUES ('"+user.id+"', '"+user.name+"', '"+user.customer_id+"', '"+user.customer+"','"+user.level+"', '"+user.cellphone+"')");
 
         }, errorCB, successCB);
 
@@ -169,6 +175,9 @@
 
         var $telefone = $("#telefone").val();
 
+         var $url = 'http://vendadireta.grupoornatus.com/api/getRepresentativeByCellphone/'+$telefone;
+        //var $url = 'http://localhost/venda_direta/public/api/getRepresentativeByCellphone/'+$telefone;
+
 
         if($telefone.length < 11)
         {
@@ -179,7 +188,7 @@
         $("#btn-cadastrar").attr('disabled',true);
 
         $.ajax({
-          url: 'http://vendadireta.grupoornatus.com/api/getRepresentativeByCellphone/'+$telefone,
+          url: $url,
           type: 'GET',
           data: {
           },
@@ -197,6 +206,7 @@
 
             if(status == 200 && retorno.length > 0)
             {
+
               insertUser(retorno[0]);
 
               window.location.replace('./dashboard.html');

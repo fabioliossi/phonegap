@@ -31,9 +31,6 @@
   </table>
 
 
-
-
-
   <br>
   <div class="container">
 
@@ -97,9 +94,9 @@ function dadosUsuario()
 function verificaKitDisponivel($user)
 {
 
-   $url = 'http://vendadireta.grupoornatus.com/api/getAvailableKit/'+$user;
+    $url = 'http://vendadireta.grupoornatus.com/api/getAvailableKit/'+$user;
 
-//  $url = 'http://localhost/venda_direta/public/api/getAvailableKit/'+$user;
+  //$url = 'http://localhost/venda_direta/public/api/getAvailableKit/'+$user;
 
   swal({
     title: "Aguarde",
@@ -125,7 +122,7 @@ function verificaKitDisponivel($user)
       {
         $("#kit-disponivel").html('Nenhum kit disponível no momento.');
 
-        swal.close()
+        swal.close();
 
       }
 
@@ -188,9 +185,9 @@ function receberProdutos($kit,$user_id)
    $url_received = 'http://vendadireta.grupoornatus.com/api/receivedProducts/'+$kit+'/'+$user_id;
 
 
-//   $url = 'http://localhost/venda_direta/public/api/getProductsByKit/'+$kit;
+   //$url = 'http://localhost/venda_direta/public/api/getProductsByKit/'+$kit;
 
-//   $url_received = 'http://localhost/venda_direta/public/api/receivedProducts/'+$kit+'/'+$user_id;
+   //$url_received = 'http://localhost/venda_direta/public/api/receivedProducts/'+$kit+'/'+$user_id;
 
 
   swal({
@@ -233,6 +230,7 @@ function receberProdutos($kit,$user_id)
           tx.executeSql("DELETE FROM product WHERE id > 0");
           tx.executeSql('DELETE FROM venda where id > 0');
           tx.executeSql('DELETE FROM venda_produto where id > 0');
+          tx.executeSql('DELETE FROM kit where id > 0');
 
           for (var i=0; i< retorno.length ; i++)
           {
@@ -242,6 +240,8 @@ function receberProdutos($kit,$user_id)
             VALUES('"+product.kit_id+"', '"+product.id+"', '"+product.brazil_code+"', '"+product.new_brazil_code+"', '"+product.image+"', '"+product.price+"','"+product.representative_price+"', '"+product.description+"', '"+product.category+"', '"+product.color+"')");
 
           }
+
+          tx.executeSql("INSERT INTO kit (kit_id,acerto, data_criacao) VALUES ('"+$kit+"', 'N', datetime('now','localtime'))");
 
         });
 

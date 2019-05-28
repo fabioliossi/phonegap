@@ -33,6 +33,7 @@
       <thead>
         <tr>
           <th scope="col"><i class="fa fa-tag" style="font-size:12pt"></i> Produtos Vendidos</th>
+          <th scope="col"><i class="fa fa-dollar" style="font-size:12pt"></i> Valor Total</th>
           <th scope="col"><i class="fa fa-dollar" style="font-size:12pt"></i> Seus Ganhos</th>
         </tr>
       </thead>
@@ -42,7 +43,10 @@
               <spam id="qtd_produtos_vendidos">0</spam>
           </th>
           <td style="font-size:15pt">
-              <spam id="valor_produtos_vendidos">0</spam>
+              <spam id="valor_venda">R$ 0</spam>
+          </td>
+          <td style="font-size:15pt">
+              <spam style="background-color:green; color:white; padding:2px" id="valor_produtos_vendidos">R$ 0</spam>
           </td>
         </tr>
       </tbody>
@@ -51,22 +55,21 @@
     <div class="col-md-12">
       <div class="form-area">
         <form role="form">
-          <button id="btn-cadastrar" onclick="novaVenda();" type="button" class="btn btn-block" style="background-color:#3385ff !important; color:white !important; height:50px; text-align:left">
+          <button id="btn-venda" onclick="novaVenda();" type="button" class="btn btn-block" style="background-color:#3385ff !important; color:white !important; height:50px; text-align:left">
             <i class="fa fa-barcode"></i> Nova Venda
           </button>
-          <button id="btn-cadastrar" onclick="mostraProdutos();" type="button" class="btn btn-block" style="background-color:#3399ff !important; color:white !important; height:50px; text-align:left">
+          <button id="btn-produtos" onclick="mostraProdutos();" type="button" class="btn btn-block" style="background-color:#3399ff !important; color:white !important; height:50px; text-align:left">
             <i class="fa fa-tags"></i> Meus Produtos
           </button>
-          <button id="btn-cadastrar" onclick="minhasVendas();" type="button" class="btn btn-block" style="background-color:#3399ff !important; color:white !important; height:50px; text-align:left">
+          <button id="btn-vendas" onclick="minhasVendas();" type="button" class="btn btn-block" style="background-color:#3399ff !important; color:white !important; height:50px; text-align:left">
             <i class="fa fa-navicon"></i> Minhas Vendas
           </button>
-          <button id="btn-cadastrar" onclick="cadastrarUsuario();" type="button" class="btn btn-block" style="background-color:#94b8b8 !important; color:white !important; height:50px; text-align:left">
+          <button id="btn-acerto" onclick="acerto();" type="button" class="btn btn-block" style="background-color:#94b8b8 !important; color:white !important; height:50px; text-align:left">
             <i class="fa fa-handshake-o"></i> Acerto
           </button>
-          <button id="btn-cadastrar" onclick="receberKit();" type="button" class="btn btn-block" style="background-color:#94b8b8 !important; color:white !important; height:50px; text-align:left">
+          <button id="btn-receber" onclick="receberKit();" type="button" class="btn btn-block" style="background-color:#94b8b8 !important; color:white !important; height:50px; text-align:left">
           <i class="fa fa-exchange"></i>  Receber novo kit
           </button>
-
         </form>
         <br>
 
@@ -112,16 +115,15 @@ function dadosUsuario()
     });
 
 
-    tx.executeSql("select count(vp.product_id) as produtos, sum(vp.qtd*(p.representative_price - p.price)) as ganhos from venda_produto vp join product p on p.product_id = vp.product_id where vp.ativo = 1",[],function(tx1,result){
+    tx.executeSql("select count(vp.product_id) as produtos, sum(vp.qtd*( p.price)) as valor_venda, sum(vp.qtd*(p.representative_price - p.price)) as ganhos from venda_produto vp join product p on p.product_id = vp.product_id where vp.ativo = 1",[],function(tx1,result){
 
-
-      console.log(result);
       var len = result.rows.length;
 
       if(len > 0)
       {
         $("#qtd_produtos_vendidos").html( result.rows.item(0).produtos );
-        $("#valor_produtos_vendidos").html(result.rows.item(0).ganhos.toFixed(2));
+        $("#valor_produtos_vendidos").html('R$ '+result.rows.item(0).ganhos.toFixed(2));
+        $("#valor_venda").html('R$ '+result.rows.item(0).valor_venda.toFixed(2));
       }
 
     });
@@ -149,6 +151,11 @@ function novaVenda()
 function receberKit()
 {
   window.location.replace('./receber_kit.html');
+}
+
+function acerto()
+{
+  window.location.replace('./acerto.html');
 }
 
 </script>
