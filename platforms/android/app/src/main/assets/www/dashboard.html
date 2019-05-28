@@ -15,46 +15,72 @@
   <title>Venda +</title>
 
 </head>
-<body style="color:#0B2161 !important">
-
-
-  <h5> <i class="fa fa-user" aria-hidden="true"></i> Olá <span id="txt_username">Fábio</span></h5>
-
-<br>
-<br>
-<div class="container">
-
+<body style="color:white !important">
+  <table  width="100%" style="background-color: #0073e6">
+    <tr>
+      <td style="padding:3px">
+        <h5> <i class="fa fa-user"></i> <b> Olá <span id="txt_username">Fábio</span></b></h5>
+        <input id="user-id" type="hidden" value="0">
+      </td>
+    </tr>
+  </table>
 
   <br>
 
+  <div class="container">
 
+    <table class="table" style="color:black">
+      <thead>
+        <tr>
+          <th scope="col"><i class="fa fa-tag" style="font-size:12pt"></i> Produtos Vendidos</th>
+          <th scope="col"><i class="fa fa-dollar" style="font-size:12pt"></i> Valor Total</th>
+          <th scope="col"><i class="fa fa-dollar" style="font-size:12pt"></i> Seus Ganhos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row" style="font-size:15pt">
+              <spam id="qtd_produtos_vendidos">0</spam>
+          </th>
+          <td style="font-size:15pt">
+              <spam id="valor_venda">R$ 0</spam>
+          </td>
+          <td style="font-size:15pt">
+              <spam style="background-color:green; color:white; padding:2px" id="valor_produtos_vendidos">R$ 0</spam>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  <div class="col-md-12">
-    <div class="form-area">
-      <form role="form">
-        <button id="btn-cadastrar" onclick="novaVenda();" type="button" class="btn btn-block" style="background-color:#005ce6 !important; color:white !important; height:50px; text-align:left">
-          Nova Venda
-        </button>
-        <button id="btn-cadastrar" onclick="mostraProdutos();" type="button" class="btn btn-block" style="background-color:#66b3ff !important; color:white !important; height:50px; text-align:left">
-          Meus Produtos
-        </button>
-        <button id="btn-cadastrar" onclick="cadastrarUsuario();" type="button" class="btn btn-block" style="background-color:#3333cc !important; color:white !important; height:50px; text-align:left">
-          Receber novo kit
-        </button>
-        <button id="btn-cadastrar" onclick="cadastrarUsuario();" type="button" class="btn btn-block" style="background-color:#3333cc !important; color:white !important; height:50px; text-align:left">
-          Acerto
-        </button>
-      </form>
-      <br>
+    <div class="col-md-12">
+      <div class="form-area">
+        <form role="form">
+          <button id="btn-venda" onclick="novaVenda();" type="button" class="btn btn-block" style="background-color:#3385ff !important; color:white !important; height:50px; text-align:left">
+            <i class="fa fa-barcode"></i> Nova Venda
+          </button>
+          <button id="btn-produtos" onclick="mostraProdutos();" type="button" class="btn btn-block" style="background-color:#3399ff !important; color:white !important; height:50px; text-align:left">
+            <i class="fa fa-tags"></i> Meus Produtos
+          </button>
+          <button id="btn-vendas" onclick="minhasVendas();" type="button" class="btn btn-block" style="background-color:#3399ff !important; color:white !important; height:50px; text-align:left">
+            <i class="fa fa-navicon"></i> Minhas Vendas
+          </button>
+          <button id="btn-acerto" onclick="acerto();" type="button" class="btn btn-block" style="background-color:#94b8b8 !important; color:white !important; height:50px; text-align:left">
+            <i class="fa fa-handshake-o"></i> Acerto
+          </button>
+          <button id="btn-receber" onclick="receberKit();" type="button" class="btn btn-block" style="background-color:#94b8b8 !important; color:white !important; height:50px; text-align:left">
+          <i class="fa fa-exchange"></i>  Receber novo kit
+          </button>
+        </form>
+        <br>
 
-      <div id="alert-login" class="alert alert-danger hide" role="alert">
-        Não foi possível validar seu cadastro. Verifique sua conexão com a internet.
+        <div id="alert-login" class="alert alert-danger hide" role="alert">
+          Não foi possível validar seu cadastro. Verifique sua conexão com a internet.
+        </div>
+
       </div>
-
     </div>
-  </div>
 
-</div>
+  </div>
 </body>
 
 <script type="text/javascript">
@@ -83,9 +109,25 @@ function dadosUsuario()
       if(len > 0)
       {
         $("#txt_username").html( result.rows.item(0).name +" [ "+ result.rows.item(0).cellphone +" ]" )
+        $("#user-id").val(result.rows.item(0).user_id);
       }
 
     });
+
+
+    tx.executeSql("select count(vp.product_id) as produtos, sum(vp.qtd*( p.price)) as valor_venda, sum(vp.qtd*(p.representative_price - p.price)) as ganhos from venda_produto vp join product p on p.product_id = vp.product_id where vp.ativo = 1",[],function(tx1,result){
+
+      var len = result.rows.length;
+
+      if(len > 0)
+      {
+        $("#qtd_produtos_vendidos").html( result.rows.item(0).produtos );
+        $("#valor_produtos_vendidos").html('R$ '+result.rows.item(0).ganhos.toFixed(2));
+        $("#valor_venda").html('R$ '+result.rows.item(0).valor_venda.toFixed(2));
+      }
+
+    });
+
   });
 
 }
@@ -95,10 +137,25 @@ function mostraProdutos()
   window.location.replace('./produtos.html');
 }
 
+function minhasVendas()
+{
+  window.location.replace('./minhasvendas.html');
+}
+
 function novaVenda()
 {
 
   window.location.replace('./venda.html');
+}
+
+function receberKit()
+{
+  window.location.replace('./receber_kit.html');
+}
+
+function acerto()
+{
+  window.location.replace('./acerto.html');
 }
 
 </script>

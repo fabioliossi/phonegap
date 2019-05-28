@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 
-  <script type="text/javascript" src="cordova.js"></script>
+  <script  src="cordova.js"></script>
   <script src="jquery-1.11.3.js"></script>
   <script src="sweetalert.min.js"></script>
 
@@ -17,17 +17,36 @@
 
 </head>
 <body style="color:#0B2161 !important">
+  <table  width="100%" style="background-color: #0073e6">
+    <tr>
+      <td style="padding:3px; color:white">
+        <h5> <i class="fa fa-barcode"></i>  <b> Nova venda</b></h5>
+      </td>
+      <td style="padding:3px; color:white">
+      </td>
+    </tr>
+  </table>
+  <br>
 
   <div class="container">
 
     <span class="hide" id="numero_venda"></span>
 
-
     <div class="row">
-
-      <button id="buscar_produto"  type="button" data-toggle="modal" data-target="#myModal" class="btn btn-block" style="background-color:#66b3ff !important; color:white !important; height:50px; text-align:center">
-        Selecionar produto
-      </button>
+      <table width="100%">
+        <tr>
+          <td style="padding:3px">
+            <button id="buscar_produto"  type="button" data-toggle="modal" data-target="#myModal" class="btn btn-block" style="background-color:#66b3ff !important; color:white !important; height:50px; text-align:center">
+              <i class="fa fa-tag"></i> Selecionar produto
+            </button>
+          </td>
+          <td style="padding:3px">
+            <button id="barcode_produto"  type="button"  class="btn btn-block" style="background-color:#66b3ff !important; color:white !important; height:50px; text-align:center">
+              <i class="fa fa-barcode"></i> Código de barra
+            </button>
+          </td>
+        </tr>
+      </table>
       <br>
       <div  id="produtos_venda" style="overflow:scroll; height:200px !important">
 
@@ -50,12 +69,12 @@
           <tr>
             <td style="width:50%">
               <button id="btn-finaliza" onclick="finalizaVenda();" type="button" class="btn btn-block" style="background-color:green !important; color:white !important; height:50px; text-align:center">
-                Finalizar Venda
+                <i class="fa fa-check"></i> Finalizar Venda
               </button>
             </td>
             <td style="width:50%">
               <button id="btn-cadastrar" onclick="voltarDashboard();" type="button" class="btn btn-block" style="background-color:red !important; color:white !important; height:50px; text-align:center">
-                Cancelar
+                <i class="fa fa-close"></i> Cancelar
               </button>
             </td>
           </tr>
@@ -84,7 +103,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
         </div>
       </div>
 
@@ -101,10 +120,98 @@
 $(function() {
 
 
+
   $( "#buscar_produto" ).click(function() {
     $("#conteudo_modal").html('');
     mostraProdutos();
   });
+
+  $( "#barcode_produto" ).click(function() {
+
+    /*  cordova.plugins.barcodeScanner.scan(function(resultado){
+
+
+    $brazil_code = resultado.text;
+
+    db.transaction(function(tx){
+
+    tx.executeSql("SELECT * FROM product WHERE new_brazil_code = '"+$brazil_code+"' LIMIT 1",[], function(tx1,result){
+
+
+    var len = result.rows.length;
+
+
+    if(len > 0)
+    {
+
+    adicionaProdutoVendaLeitor(result.rows.item(0).product_id);
+  }
+  else
+  {
+  swal("","Produto "+$brazil_code+" não encontrado.");
+  return false;
+}
+
+});
+
+
+});
+
+})*/
+
+
+  cordova.plugins.barcodeScanner.scan(
+    function (resultado) {
+
+      $brazil_code = resultado.text;
+
+      if($brazil_code.length < 5)
+      {
+        return false;
+      }
+
+      db.transaction(function(tx){
+
+        tx.executeSql("SELECT * FROM product WHERE new_brazil_code = '"+$brazil_code+"' LIMIT 1",[], function(tx1,result){
+
+
+          var len = result.rows.length;
+
+
+          if(len > 0)
+          {
+
+            adicionaProdutoVendaLeitor(result.rows.item(0).product_id);
+          }
+          else
+          {
+            swal("","Produto "+$brazil_code+" não encontrado.");
+            return false;
+          }
+
+        });
+
+
+      });
+    },
+    function (error) {
+      return false;
+    },
+    {
+      preferFrontCamera : true, // iOS and Android
+      showFlipCameraButton : true, // iOS and Android
+      showTorchButton : true, // iOS and Android
+      torchOn: true, // Android, launch with the torch switched on (if available)
+      saveHistory: true, // Android, save scan history (default false)
+      orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+      disableAnimations : true, // iOS
+      disableSuccessBeep: false // iOS and Android
+    }
+  );
+
+
+});
+
 });
 
 
@@ -116,9 +223,10 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady()
 {
 
+
   criarVenda();
   produtosDaVenda();
-  document.addEventListener("backbutton", voltarDashboard, false);
+  document.addEventListener("backbutton", function(data){ return false;}, false);
 
 
 }
@@ -162,32 +270,32 @@ function finalizaVenda()
       if(result.rowsAffected > 0)
       {
         swal({
-            title: "Tem certeza?",
-            text: "Clique em 'Sim' para registrar a venda.",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#6666ff",
-            confirmButtonText: "Sim",
+          title: "Tem certeza?",
+          text: "Clique em 'Sim' para registrar a venda.",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#0073e6",
+          confirmButtonText: "Sim",
+          closeOnConfirm: false,
+          html: false
+        }, function(){
+          swal({
+
+            title: "",
+            text: "Venda registrada com sucesso!",
+            type: "success",
+            showCancelButton: false,
+            confirmButtonColor: "#0073e6",
+            confirmButtonText: "OK",
             closeOnConfirm: false,
             html: false
           }, function(){
-            swal({
 
-                title: "",
-                text: "Venda registrada com sucesso!",
-                type: "success",
-                showCancelButton: false,
-                confirmButtonColor: "#6666ff",
-                confirmButtonText: "OK",
-                closeOnConfirm: false,
-                html: false
-              }, function(){
-
-                voltarDashboard();
-
-              });
+            voltarDashboard();
 
           });
+
+        });
       }
       else
       {
@@ -217,7 +325,7 @@ function mostraProdutos()
 
     tx.executeSql("select * from product where product_id not in (select product_id from venda_produto where venda_id = '"+$venda+"' and ativo = '1')",[],function(tx1,result){
 
-      console.log(result);
+
       var len = result.rows.length;
 
       var $table = '<table class="table" style="width:100% !important; font-size:8pt !important"><thead>';
@@ -229,7 +337,7 @@ function mostraProdutos()
         $table += '<tr><td><img width="50px" height="50px" height="5px" src="data:image/jpeg;base64,'+product.image+'"/></td>';
         $table += '<td>'+product.description+'<br>'+product.color+'<br>'+product.new_brazil_code+'</td>';
         $table += '<td>'+product.representative_price+'</td>';
-        $table += '<td><input class="qtd_venda_'+product.product_id+'" style="width:20% !important" value="1" type="number"/></td>';
+        $table += '<td><input class="qtd_venda_'+product.product_id+'" style="width:20% !important" value="1" type="text" readonly="readonly"/></td>';
         $table += '<td><button type="button" onclick="adicionaProdutoVenda('+product.product_id+')" class="btn btn-primary btn-xs" style="float:center; width:30px; height:30px">+</button></td></tr>';
 
       }
@@ -340,6 +448,45 @@ function removeProdutoVenda($vp_id)
   produtosDaVenda();
   calcularVenda();
 
+}
+
+function adicionaProdutoVendaLeitor(product_id)
+{
+  $venda = $("#numero_venda").html();
+  $qtd = 1;
+
+  db.transaction(function(tx){
+
+
+    tx.executeSql("SELECT * FROM venda_produto vp JOIN venda v ON v.id = vp.venda_id WHERE vp.ativo = '1' AND v.id = '"+$venda+"' AND vp.product_id = '"+product_id+"';",[], function(tx1,result){
+
+      var len = result.rows.length;
+
+      if(len > 0)
+      {
+
+        swal("","Este produto já está na venda atual.");
+        return false;
+      }
+
+      else
+      {
+
+        tx.executeSql("INSERT INTO venda_produto(venda_id,product_id, qtd) VALUES('"+$venda+"', '"+product_id+"','"+$qtd+"')",[], function(tx1,result){
+
+
+        });
+
+      }
+
+
+    });
+
+    calcularVenda();
+
+  });
+
+  produtosDaVenda();
 }
 
 

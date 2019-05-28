@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script src="jquery-1.11.3.js"></script>
+  <script src="sweetalert.min.js"></script>
+
+  <script type="text/javascript" src="bootstrap.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="sweetalert.css">
+
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'" />
+  <title>Venda +</title>
+
+</head>
+<body style="color:white !important">
+  <table  width="100%" style="background-color: #0073e6">
+    <tr>
+      <td style="padding:3px; color:white">
+        <h5><i class="fa fa-handshake-o"></i> <b> Acerto</b></h5>
+        <input id="user-id" type="hidden" value="0"/>
+      </td>
+      <td style="padding:3px; color:white">
+        <button type="button" onclick="voltarDashboard()" class="btn btn-primary btn-xs" style="float:right">Voltar</button>
+      </td>
+    </tr>
+  </table>
+
+
+  <br>
+  <div class="container">
+
+
+    <br>
+
+
+    <div class="alert alert-info" style="font-size:8pt" role="alert" id="kit-disponivel">
+
+    </div>
+
+  </div>
+</body>
+
+<script type="text/javascript">
+
+var  $vendas = '';
+var  $produtos = '';
+
+// window.openDatabase("database-name","version","database description","database size in bytes")
+var db = window.openDatabase("tutorialdb", "1.0", "tutorial database", 1000000); //will create database Dummy_DB or open it
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+
+  document.addEventListener("backbutton", voltarDashboard, false);
+
+}
+
+$(function() {
+  dadosUsuario();
+
+});
+
+function voltarDashboard()
+{
+  window.location.replace('./dashboard.html');
+}
+
+
+//Dados do usuário
+function dadosUsuario()
+{
+
+  db.transaction(function(tx){
+
+    tx.executeSql("select * from user limit 1",[],function(tx1,result){
+
+      var len = result.rows.length;
+
+      if(len > 0)
+      {
+        verificaKitDisponivel( result.rows.item(0).user_id );
+        $("#user-id").val(result.rows.item(0).user_id );
+
+      }
+
+    });
+  });
+
+}
+
+
+function verificaKitDisponivel($user)
+{
+
+  // $url = 'http://vendadireta.grupoornatus.com/api/getAvailableKit/'+$user;
+
+  $url = 'http://vendadireta.grupoornatus.com/api/getAvailableKitToPay/'+$user;
+
+   //$url = 'http://localhost/venda_direta/public/api/getAvailableKitToPay/'+$user;
+
+  swal({
+    title: "Aguarde",
+    text: "Verificando se algum kit está disponível para acerto",
+    type: "warning",
+    showCancelButton: false,
+    showConfirmButton:false
+  });
+
+  $.ajax({
+    url: $url,
+    type: 'GET',
+    data: {
+    },
+    success: function(data, textStatus, xhr)
+    {
+      var status = xhr.status;
+      var retorno = JSON.parse(data);
+
+      console.log(retorno[0]);
+
+      if(status == 200 && retorno.length < 1)
+      {
+        $("#kit-disponivel").html('Nenhum kit disponível para acerto.');
+
+        swal.close();
+
+      }
+
+      if(status == 200 && retorno.length > 0)
+      {
+        $("#kit-disponivel").html('<table width="100%" style="font-size:7pt"> \
+        <tr> \
+        <td><b>Kit</b><br>'+retorno[0].kit_name+'</td> \
+        <td><b>Início</b><br>'+retorno[0].date_start+'</td> \
+        <td><b>Fim</b><br>'+retorno[0].date_end+'</td> \
+        <td style="width:10%"> \
+        <button id="btn-receber"  onclick="enviarDados('+retorno[0].kit_id+');" type="button" class="btn " style="font-size:8pt; background-color:#3399ff !important; color:white !important;  text-align:right"> \
+        Enviar  \
+        </button> \
+        </td> \
+        </tr> \
+        </table>');
+
+        swal.close()
+      }
+
+    },
+    error: function(xhr, status, error)
+    {
+      swal('Falha ao conectar', 'Verifique sua conexão e tente novamente.');
+    }
+  });
+
+}
+
+
+function mostraProdutos()
+{
+  window.location.replace('./produtos.html');
+}
+
+function minhasVendas()
+{
+  window.location.replace('./minhasvendas.html');
+}
+
+function novaVenda()
+{
+
+  window.location.replace('./venda.html');
+}
+
+function receberKit()
+{
+  window.location.replace('./receber_kit.html');
+}
+
+
+function enviarDados($kit)
+{
+
+  db.transaction(function(tx){
+
+    swal({
+      title: "Aguarde",
+      text: "Enviando os seus dados.",
+      type: "info",
+      showCancelButton: false,
+      showConfirmButton:false
+    });
+
+    $user_id = $("#user-id").val();
+
+    $url = 'http://vendadireta.grupoornatus.com/api/getProductsByKit/'+$kit;
+
+    $url_send = 'http://vendadireta.grupoornatus.com/api/sendSales/'+$kit+'/'+$user_id;
+
+    $url_send_saleproduct = 'http://vendadireta.grupoornatus.com/api/sendSaleProduct/'+$kit+'/'+$user_id;
+
+
+     //$url = 'http://localhost/venda_direta/public/api/getProductsByKit/'+$kit;
+
+    //$url_send = 'http://localhost/venda_direta/public/api/sendSales/'+$kit+'/'+$user_id;
+
+    //$url_send_saleproduct = 'http://localhost/venda_direta/public/api/sendSaleProduct/'+$kit+'/'+$user_id;
+
+    tx.executeSql("SELECT '"+$user_id+"' as user_id, id, data_criacao,data_finalizacao,finalizada FROM venda WHERE finalizada='S';",[],function(tx1,result){
+
+      $vendas= JSON.stringify(result.rows);
+    });
+
+    tx.executeSql("SELECT * FROM venda_produto WHERE ativo=1;",[],function(tx1,result){
+
+      $produtos= JSON.stringify(result.rows);
+
+    });
+
+  },// Caso erro
+  function($err)
+  {
+    console.log($err);
+  },// Caso Sucesso
+  function()
+  {
+    $.ajax({
+      url: $url_send,
+      type: 'GET',
+      async:false,
+      data: { produtos:$produtos, vendas:$vendas  },
+      success: function(data, textStatus, xhr)
+      {
+        if(data == 'true')
+        {
+          swal({
+            title: "",
+            text: "Os dados foram enviados com sucesso",
+            type: "info",
+            showCancelButton: false,
+            showConfirmButton:true
+          });
+
+        //  window.location.replace('./dashboard.html');
+
+          return true;
+        }else
+        {
+          swal({
+            title: "",
+            text: "Erro ao enviar os dados.",
+            type: "danger",
+            showCancelButton: false,
+            showConfirmButton:true
+          });
+
+          return false;
+        }
+
+      },
+      error: function(xhr, status, error)
+      {
+        swal('Falha ao conectar', 'Verifique sua conexão e tente novamente.');
+      }
+
+    });
+  }
+);
+
+}
+
+</script>
+
+
+
+</html>

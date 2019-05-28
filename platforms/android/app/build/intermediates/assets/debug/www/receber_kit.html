@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script src="jquery-1.11.3.js"></script>
+  <script src="sweetalert.min.js"></script>
+
+  <script type="text/javascript" src="bootstrap.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="sweetalert.css">
+
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'" />
+  <title>Venda +</title>
+
+</head>
+<body style="color:white !important">
+  <table  width="100%" style="background-color: #0073e6">
+    <tr>
+      <td style="padding:3px; color:white">
+        <h5> <i class="fa fa-exchange"></i> <b> Receber Produtos</b></h5>
+        <input id="user-id" type="hidden" value="0"/>
+      </td>
+      <td style="padding:3px; color:white">
+        <button type="button" onclick="voltarDashboard()" class="btn btn-primary btn-xs" style="float:right">Voltar</button>
+      </td>
+    </tr>
+  </table>
+
+
+
+
+
+  <br>
+  <div class="container">
+
+
+    <br>
+
+
+    <div class="alert alert-info" style="font-size:8pt" role="alert" id="kit-disponivel">
+
+    </div>
+
+  </div>
+</body>
+
+<script type="text/javascript">
+
+// window.openDatabase("database-name","version","database description","database size in bytes")
+var db = window.openDatabase("tutorialdb", "1.0", "tutorial database", 1000000); //will create database Dummy_DB or open it
+document.addEventListener("deviceready", onDeviceReady, false);
+
+function onDeviceReady() {
+
+  document.addEventListener("backbutton", voltarDashboard, false);
+
+}
+
+$(function() {
+  dadosUsuario();
+
+});
+
+function voltarDashboard()
+{
+  window.location.replace('./dashboard.html');
+}
+
+
+//Dados do usuário
+function dadosUsuario()
+{
+
+  db.transaction(function(tx){
+
+    tx.executeSql("select * from user limit 1",[],function(tx1,result){
+
+      var len = result.rows.length;
+
+      if(len > 0)
+      {
+        verificaKitDisponivel( result.rows.item(0).user_id );
+        $("#user-id").val(result.rows.item(0).user_id );
+
+      }
+
+    });
+  });
+
+}
+
+
+function verificaKitDisponivel($user)
+{
+
+   $url = 'http://vendadireta.grupoornatus.com/api/getAvailableKit/'+$user;
+
+//  $url = 'http://localhost/venda_direta/public/api/getAvailableKit/'+$user;
+
+  swal({
+    title: "Aguarde",
+    text: "Verificando se algum kit está disponível",
+    type: "warning",
+    showCancelButton: false,
+    showConfirmButton:false
+  });
+
+  $.ajax({
+    url: $url,
+    type: 'GET',
+    data: {
+    },
+    success: function(data, textStatus, xhr)
+    {
+      var status = xhr.status;
+      var retorno = JSON.parse(data);
+
+      console.log(retorno[0]);
+
+      if(status == 200 && retorno.length < 1)
+      {
+        $("#kit-disponivel").html('Nenhum kit disponível no momento.');
+
+        swal.close()
+
+      }
+
+      if(status == 200 && retorno.length > 0)
+      {
+        $("#kit-disponivel").html('<table width="100%" style="font-size:7pt"> \
+        <tr> \
+        <td><b>Kit</b><br>'+retorno[0].kit_name+'</td> \
+        <td><b>Início</b><br>'+retorno[0].date_start+'</td> \
+        <td><b>Fim</b><br>'+retorno[0].date_end+'</td> \
+        <td style="width:10%"> \
+        <button id="btn-receber"  onclick="receberProdutos('+retorno[0].kit_id+');" type="button" class="btn " style="font-size:8pt; background-color:#3399ff !important; color:white !important;  text-align:right"> \
+        Receber Produtos \
+        </button> \
+        </td> \
+        </tr> \
+        </table>');
+
+        swal.close()
+      }
+
+    },
+    error: function(xhr, status, error)
+    {
+      swal('Falha ao conectar', 'Verifique sua conexão e tente novamente.');
+    }
+  });
+
+}
+
+
+function mostraProdutos()
+{
+  window.location.replace('./produtos.html');
+}
+
+function minhasVendas()
+{
+  window.location.replace('./minhasvendas.html');
+}
+
+function novaVenda()
+{
+
+  window.location.replace('./venda.html');
+}
+
+function receberKit()
+{
+  window.location.replace('./receber_kit.html');
+}
+
+
+function receberProdutos($kit,$user_id)
+{
+  $user_id = $("#user-id").val();
+
+   $url = 'http://vendadireta.grupoornatus.com/api/getProductsByKit/'+$kit;
+
+   $url_received = 'http://vendadireta.grupoornatus.com/api/receivedProducts/'+$kit+'/'+$user_id;
+
+
+//   $url = 'http://localhost/venda_direta/public/api/getProductsByKit/'+$kit;
+
+//   $url_received = 'http://localhost/venda_direta/public/api/receivedProducts/'+$kit+'/'+$user_id;
+
+
+  swal({
+    title: "Aguarde",
+    text: "Importando os produtos.",
+    type: "info",
+    showCancelButton: false,
+    showConfirmButton:false
+  });
+
+  $.ajax({
+    url: $url,
+    type: 'GET',
+    data: {
+    },
+    success: function(data, textStatus, xhr)
+    {
+      var status = xhr.status;
+      var retorno = JSON.parse(data);
+
+      console.log(retorno[0]);
+
+      if(status == 200 && retorno.length < 1)
+      {
+        swal({
+          title: "",
+          text: "Nenhum produto disponível para importação.",
+          type: "info",
+          showCancelButton: false,
+          showConfirmButton:true
+        });
+
+      }
+
+      if(status == 200 && retorno.length > 0)
+      {
+
+        db.transaction(function(tx){
+
+          tx.executeSql("DELETE FROM product WHERE id > 0");
+          tx.executeSql('DELETE FROM venda where id > 0');
+          tx.executeSql('DELETE FROM venda_produto where id > 0');
+
+          for (var i=0; i< retorno.length ; i++)
+          {
+            var product = retorno[i];
+
+            tx.executeSql("INSERT INTO product(kit_id, product_id, brazil_code,new_brazil_code,image, price, representative_price, description, category,color) \
+            VALUES('"+product.kit_id+"', '"+product.id+"', '"+product.brazil_code+"', '"+product.new_brazil_code+"', '"+product.image+"', '"+product.price+"','"+product.representative_price+"', '"+product.description+"', '"+product.category+"', '"+product.color+"')");
+
+          }
+
+        });
+
+        $.ajax({
+          url: $url_received,
+          type: 'GET',
+          data: {}
+        });
+
+        swal({
+          title: "",
+          text: "Produtos importados com sucesso!",
+          type: "info",
+          showCancelButton: false,
+          showConfirmButton:true
+        },function() {
+
+          mostraProdutos();
+
+        });
+
+        //  swal.close()
+      }
+
+    },
+    error: function(xhr, status, error)
+    {
+      swal('Falha ao conectar', 'Verifique sua conexão e tente novamente.');
+    }
+  });
+
+}
+
+</script>
+
+
+
+</html>

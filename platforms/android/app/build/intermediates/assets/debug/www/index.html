@@ -17,7 +17,9 @@
   <title>Venda +</title>
 
 </head>
-<body style="color:#0B2161 !important">
+<body style="color:#0073e6 !important">
+
+
 
   <div class="container hide">
 
@@ -27,8 +29,8 @@
           <h3 style="margin-bottom: 25px; text-align: center;">Bem vindo.<BR> Informe o número do celular com DDD (ex: 11984847373):</h3>
             <div class="form-group">
               <input id="telefone" maxlength="11" class="form-control form-control-lg" type="number" placeholder="Número do celular com DDD" style="height:50px; font-size:12pt">          </div>
-              <button id="btn-cadastrar" onclick="cadastrarUsuario();" type="button" class="btn btn-block" style="background-color:#0B2161 !important; color:white !important; height:50px; font-size:15pt">
-                <i class="fa fa-cog" aria-hidden="true"></i> Configurar
+              <button id="btn-cadastrar" onclick="cadastrarUsuario();" type="button" class="btn btn-block" style="background-color:#0073e6 !important; color:white !important; height:50px; font-size:15pt">
+                Configurar
               </button>
             </form>
             <br>
@@ -45,8 +47,8 @@
 
 
 
-      <div id="div-load" class="row hide" style="text-align:center !important;">
-        <img src="loading.gif" width="30%">
+      <div id="div-load" class="row hide" style="text-align:center !important; margin-top:20% !important">
+        <img src="loading.gif" width="50%">
       </div>
 
 
@@ -87,14 +89,7 @@
         tx.executeSql('CREATE TABLE IF NOT EXISTS product (id INTEGER PRIMARY KEY AUTOINCREMENT,kit_id TEXT NULL, product_id TEXT NULL,brazil_code TEXT NULL,new_brazil_code TEXT NULL, image TEXT NULL, price TEXT NULL, representative_price TEXT NULL, description TEXT NOT NULL, category TEXT NOT NULL, color TEXT NOT NULL)');
         tx.executeSql('CREATE TABLE IF NOT EXISTS venda (id INTEGER PRIMARY KEY AUTOINCREMENT,data_criacao TEXT NULL DEFAULT CURRENT_TIMESTAMP, data_finalizacao TEXT NULL DEFAULT CURRENT_TIMESTAMP,finalizada TEXT NULL)');
         tx.executeSql('CREATE TABLE IF NOT EXISTS venda_produto (id INTEGER PRIMARY KEY AUTOINCREMENT,data_criacao TEXT NULL DEFAULT CURRENT_TIMESTAMP, venda_id TEXT NOT NULL, product_id TEXT NOT NULL, qtd TEXT NULL, ativo TEXT DEFAULT 1)');
-        tx.executeSql('DELETE FROM user where id > 0');
-        tx.executeSql('DELETE FROM product where id > 0');
-        tx.executeSql('DELETE FROM venda where id > 0');
-        tx.executeSql('DELETE FROM venda_produto where id > 0');
-
-       tx.executeSql("INSERT INTO product(kit_id, product_id, brazil_code,new_brazil_code,image, price, representative_price, description, category,color) VALUES('1','"+random+"','19283928329', '18763562536', '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','11.90', '19.90', 'Colar Dourado', 'Colar', 'DOURADO')");
-
-
+        tx.executeSql('DELETE FROM user WHERE id > 0');
       }
 
       // Fetch all records
