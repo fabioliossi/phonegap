@@ -7,6 +7,7 @@
   <script src="sweetalert.min.js"></script>
 
   <script type="text/javascript" src="bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/sync.js"></script>
 
   <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="sweetalert.css">
@@ -176,7 +177,7 @@
         var $telefone = $("#telefone").val();
 
          var $url = 'http://vendadireta.grupoornatus.com/api/getRepresentativeByCellphone/'+$telefone;
-        //var $url = 'http://localhost/venda_direta/public/api/getRepresentativeByCellphone/'+$telefone;
+        // var $url = 'http://localhost/venda_direta/public/api/getRepresentativeByCellphone/'+$telefone;
 
 
         if($telefone.length < 11)
