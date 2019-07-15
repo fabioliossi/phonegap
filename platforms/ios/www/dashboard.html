@@ -116,7 +116,7 @@ function dadosUsuario()
     });
 
 
-    tx.executeSql("select count(vp.product_id) as produtos, sum(vp.qtd*( p.price)) as valor_venda, sum(vp.qtd*(p.representative_price - p.price)) as ganhos from venda_produto vp join product p on p.product_id = vp.product_id where vp.ativo = 1",[],function(tx1,result){
+    tx.executeSql("select count(vp.product_id) as produtos, sum(vp.qtd*( p.representative_price)) as valor_venda, sum(vp.qtd*(p.representative_price - p.price)) as ganhos from venda_produto vp join product p on p.product_id = vp.product_id JOIN venda v ON v.id = vp.venda_id where vp.ativo = 1 AND v.finalizada = 'S'",[],function(tx1,result){
 
       var len = result.rows.length;
 

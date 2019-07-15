@@ -28,7 +28,7 @@ function sync()
 
 
 
-    tx.executeSql("SELECT (SELECT user_id FROM user LIMIT 1) as user_id, id, data_criacao,data_finalizacao,finalizada FROM venda WHERE finalizada='S';",[],function(tx1,result){
+    tx.executeSql("SELECT (SELECT user_id FROM user LIMIT 1) as user_id, id, data_criacao,data_finalizacao,finalizada, cliente_id,valor_pago FROM venda WHERE finalizada='S';",[],function(tx1,result){
 
       $vendas= JSON.stringify(result.rows);
 
@@ -40,6 +40,14 @@ function sync()
 
     });
 
+    tx.executeSql("SELECT (SELECT user_id FROM user LIMIT 1) as user_id, id, nome, telefone FROM cliente;",[],function(tx1,result){
+
+      $clientes= JSON.stringify(result.rows);
+
+    });
+
+
+
   },// Caso erro
   function($err)
   {
@@ -47,14 +55,14 @@ function sync()
   },// Caso Sucesso
   function()
   {
-     var $url_send = 'http://vendadireta.grupoornatus.com/api/syncSales/'+$kit_id+'/'+$user_id;
-  //  var $url_send = 'http://localhost/venda_direta/public/api/syncSales/'+$kit_id+'/'+$user_id;
+     // var $url_send = 'http://vendadireta.grupoornatus.com/api/syncSales/'+$kit_id+'/'+$user_id;
+    var $url_send = 'http://localhost/venda_direta/public/api/syncSales/'+$kit_id+'/'+$user_id;
 
     $.ajax({
       url: $url_send,
       type: 'GET',
       async:false,
-      data: { produtos:$produtos, vendas:$vendas  },
+      data: { produtos:$produtos, vendas:$vendas, clientes:$clientes  },
       success: function(data, textStatus, xhr)
       {
 
