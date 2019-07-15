@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
 
-  <script type="text/javascript" src="cordova.js"></script>
+  <script  src="cordova.js"></script>
   <script src="jquery-1.11.3.js"></script>
+  <script src="sweetalert.min.js"></script>
 
   <script type="text/javascript" src="bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/sync.js"></script>
 
   <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="sweetalert.css">
   <link rel="stylesheet" type="text/css" href="font-awesome.css">
 
   <meta charset="UTF-8">
-  <!-- meta http-equiv="Content-Security-Policy" content="img-src *; default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'" /-->
   <title>Venda +</title>
 
 </head>
@@ -66,25 +68,43 @@ function mostraProdutos()
 {
   db.transaction(function(tx){
 
-    tx.executeSql("select v.id, v.data_finalizacao as data, count(distinct vp.product_id) as produtos, sum(vp.qtd) as qtd, sum(vp.qtd*p.representative_price) as total, sum(vp.qtd*p.representative_price)-sum(vp.qtd*p.price) as ganhos from venda v join venda_produto vp on vp.venda_id = v.id join  product p on p.product_id = vp.product_id WHERE v.finalizada = 'S' AND vp.ativo='1' group by 1,2",[],function(tx1,result){
+    $sql = "select v.id, v.valor_pago, v.data_finalizacao as data, c.nome as cliente, count(distinct vp.product_id) as produtos, sum(vp.qtd) as qtd, sum(vp.qtd*p.representative_price) as total, ";
+    $sql += "sum(vp.qtd*p.representative_price)-sum(vp.qtd*p.price) as ganhos ";
+    $sql += "from venda v ";
+    $sql += "join venda_produto vp on vp.venda_id = v.id ";
+    $sql += "join  product p on p.product_id = vp.product_id ";
+    $sql += "left join  cliente c on v.cliente_id = c.id";
+    $sql +=" WHERE v.finalizada = 'S' AND vp.ativo='1' group by 1,2,3,4"
+
+    tx.executeSql($sql,[],function(tx1,result){
       var len = result.rows.length;
 
       console.log(result);
 
 
       var $table = '<table style="font-size:8pt" class="table"><thead>';
-      $table +='<tr><th scope="col">Código</th><th scope="col">Data</th><th scope="col">Produtos</th><th scope="col">Qtd.</th><th scope="col">Total da Venda</th><th scope="col">Meu Lucro</th></tr></thead>';
+      $table +='<tr><th scope="col">Código</th>';
+      $table += '<th scope="col">Data</th>';
+      $table += '<th>Cliente</th><th scope="col">Produtos</th>';
+      $table += '<th scope="col">Qtd.</th><th scope="col">Total da Venda</th>';
+      $table += '<th scope="col">Total Pago</th>';
+      $table += '<th scope="col">Total Devedor</th>';
+      $table += '<th scope="col">Meu Lucro</th><th></th></tr></thead>';
 
 
       for (var i=0; i<len; i++){
         var product = result.rows.item(i);
 
         $table += '<tr><td>'+product.id+'</td>';
-          $table += '<td>'+product.data+'</td>';
+          $table += '<td style="width:10%">'+product.data+'</td>';
+          $table += '<td style="width:10%">'+product.cliente+'</td>';
         $table += '<td>'+product.produtos+'</td>';
         $table += '<td>'+product.qtd+'</td>';
         $table += '<td>'+product.total.toFixed(2)+'</td>';
-        $table += '<td>'+product.ganhos.toFixed(2)+'</td></tr>';
+        $table += '<td>'+product.valor_pago+'</td>';
+        $table += '<td>'+(product.total-product.valor_pago).toFixed(2)+'</td>';
+        $table += '<td>'+product.ganhos.toFixed(2)+'</td>';
+        $table += '<td><button id="btn-excluir" onclick="cancelarVenda('+product.id+');" type="button" style="background-color:red; color:white" class="btn">Excluir</button></td></tr>';
 
       }
 
@@ -100,8 +120,38 @@ function voltarDashboard()
   window.location.replace('./dashboard.html');
 }
 
+function cancelarVenda($venda)
+{
+
+  swal({
+    title: "Tem certeza?",
+    text: "Clique em 'Sim' para excluir a venda.",
+    type: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#0073e6",
+    confirmButtonText: "Sim",
+    closeOnConfirm: false,
+    html: false
+  }, function(){
+
+    db.transaction(function(tx){
+
+      tx.executeSql("DELETE FROM venda_produto WHERE venda_id = '"+$venda+"' ",[], function(tx1,result){
 
 
+      });
+
+      tx.executeSql("DELETE FROM venda WHERE id = '"+$venda+"' ",[], function(tx1,result){
+
+      });
+
+    });
+
+  //  window.location.replace('./minhasvendas.html');
+
+});
+
+}
 
 </script>
 

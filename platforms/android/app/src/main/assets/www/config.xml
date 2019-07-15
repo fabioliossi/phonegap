@@ -26,6 +26,6 @@
     </platform>
     <plugin name="cordova-plugin-whitelist" />
     <plugin name="cordova-plugin-barcodescanner" spec="0.7.0-21" />
-    <engine name="android" spec="7.1.4" />
+    <engine name="android" spec="9" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
 </widget>

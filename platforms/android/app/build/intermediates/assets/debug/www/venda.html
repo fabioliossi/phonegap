@@ -7,10 +7,13 @@
   <script src="sweetalert.min.js"></script>
 
   <script type="text/javascript" src="bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/sync.js"></script>
+  <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
 
   <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="sweetalert.css">
   <link rel="stylesheet" type="text/css" href="font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
 
   <meta charset="UTF-8">
   <title>Venda +</title>
@@ -67,6 +70,23 @@
             </th>
           </tr>
           <tr>
+            <th scope="col">
+              CLIENTE
+              <button id="btn-cliente" onclick="adicionaCliente();" type="button" class="btn" style="font-size: 8pt; background-color:orange !important; color:white !important; text-align:center">
+                <i class="fa fa-plus"></i> Novo cliente
+              </button>
+            </th>
+            <th scope="col">TOTAL RECEBIDO</th>
+          </tr>
+          <tr>
+            <th scope="col" id="td-cliente">
+
+            </th>
+            <th>
+              <input type="text" name="recebido" id="recebido"  onKeyPress="return(moeda(this,'','.',event))"/>
+            </th>
+          </tr>
+          <tr>
             <td style="width:50%">
               <button id="btn-finaliza" onclick="finalizaVenda();" type="button" class="btn btn-block" style="background-color:green !important; color:white !important; height:50px; text-align:center">
                 <i class="fa fa-check"></i> Finalizar Venda
@@ -98,11 +118,42 @@
           <h4 class="modal-title">Lista de produtos</h4>
         </div>
         <div class="modal-body" id="conteudo_modal">
-
-
-
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Modal Cliente -->
+  <div class="modal fade" id="modalCliente" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Cadastrar Cliente</h4>
+        </div>
+        <div class="modal-body" id="conteudo_cliente">
+          <table width="100%">
+            <tr>
+              <td>Nome</br>
+                <input type="text" class="form-control" name="nome_cliente" id="nome_cliente"/>
+              </td>
+            </tr>
+            <tr>
+              <td>Telefone</br>
+                <input type="number" class="form-control" name="telefone_cliente" id="telefone_cliente"/>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" onclick="salvarCliente()" class="btn btn-success" data-dismiss="modal">Salvar</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
         </div>
       </div>
@@ -118,9 +169,6 @@
 <script type="text/javascript">
 
 $(function() {
-
-
-
   $( "#buscar_produto" ).click(function() {
     $("#conteudo_modal").html('');
     mostraProdutos();
@@ -128,89 +176,58 @@ $(function() {
 
   $( "#barcode_produto" ).click(function() {
 
-    /*  cordova.plugins.barcodeScanner.scan(function(resultado){
+
+    cordova.plugins.barcodeScanner.scan(
+      function (resultado) {
+
+        $brazil_code = resultado.text;
+
+        if($brazil_code.length < 5)
+        {
+          return false;
+        }
+
+        db.transaction(function(tx){
+
+          tx.executeSql("SELECT * FROM product WHERE new_brazil_code = '"+$brazil_code+"' LIMIT 1",[], function(tx1,result){
 
 
-    $brazil_code = resultado.text;
-
-    db.transaction(function(tx){
-
-    tx.executeSql("SELECT * FROM product WHERE new_brazil_code = '"+$brazil_code+"' LIMIT 1",[], function(tx1,result){
+            var len = result.rows.length;
 
 
-    var len = result.rows.length;
+            if(len > 0)
+            {
 
+              adicionaProdutoVendaLeitor(result.rows.item(0).product_id);
+            }
+            else
+            {
+              swal("","Produto "+$brazil_code+" não encontrado.");
+              return false;
+            }
 
-    if(len > 0)
-    {
+          });
 
-    adicionaProdutoVendaLeitor(result.rows.item(0).product_id);
-  }
-  else
-  {
-  swal("","Produto "+$brazil_code+" não encontrado.");
-  return false;
-}
-
-});
-
-
-});
-
-})*/
-
-
-  cordova.plugins.barcodeScanner.scan(
-    function (resultado) {
-
-      $brazil_code = resultado.text;
-
-      if($brazil_code.length < 5)
-      {
-        return false;
-      }
-
-      db.transaction(function(tx){
-
-        tx.executeSql("SELECT * FROM product WHERE new_brazil_code = '"+$brazil_code+"' LIMIT 1",[], function(tx1,result){
-
-
-          var len = result.rows.length;
-
-
-          if(len > 0)
-          {
-
-            adicionaProdutoVendaLeitor(result.rows.item(0).product_id);
-          }
-          else
-          {
-            swal("","Produto "+$brazil_code+" não encontrado.");
-            return false;
-          }
 
         });
+      },
+      function (error) {
+        return false;
+      },
+      {
+        preferFrontCamera : true, // iOS and Android
+        showFlipCameraButton : true, // iOS and Android
+        showTorchButton : true, // iOS and Android
+        torchOn: true, // Android, launch with the torch switched on (if available)
+        saveHistory: true, // Android, save scan history (default false)
+        orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+        disableAnimations : true, // iOS
+        disableSuccessBeep: false // iOS and Android
+      }
+    );
 
 
-      });
-    },
-    function (error) {
-      return false;
-    },
-    {
-      preferFrontCamera : true, // iOS and Android
-      showFlipCameraButton : true, // iOS and Android
-      showTorchButton : true, // iOS and Android
-      torchOn: true, // Android, launch with the torch switched on (if available)
-      saveHistory: true, // Android, save scan history (default false)
-      orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
-      disableAnimations : true, // iOS
-      disableSuccessBeep: false // iOS and Android
-    }
-  );
-
-
-});
+  });
 
 });
 
@@ -226,6 +243,7 @@ function onDeviceReady()
 
   criarVenda();
   produtosDaVenda();
+  selectCliente();
   document.addEventListener("backbutton", function(data){ return false;}, false);
 
 
@@ -262,10 +280,12 @@ function limparVendas()
 function finalizaVenda()
 {
   $venda = $("#numero_venda").html();
+  $cliente = $("#cliente  option:selected").val();
+  $recebido = $("#recebido").val();
 
   db.transaction(function(tx){
 
-    tx.executeSql("UPDATE venda SET finalizada = 'S', data_finalizacao=datetime('now','localtime') WHERE id = '"+$venda+"';",[], function(tx1,result){
+    tx.executeSql("UPDATE venda SET finalizada = 'S', data_finalizacao=datetime('now','localtime'), cliente_id = '"+$cliente+"', valor_pago='"+$recebido+"' WHERE id = '"+$venda+"';",[], function(tx1,result){
 
       if(result.rowsAffected > 0)
       {
@@ -380,6 +400,13 @@ function adicionaProdutoVenda(product_id)
   produtosDaVenda();
 }
 
+function adicionaCliente()
+{
+  $cliente = $("#nome_cliente").val('');
+  $telefone = $("#telefone_cliente").val('');
+  $("#modalCliente").modal('toggle');
+}
+
 function produtosDaVenda()
 {
   $venda = $("#numero_venda").html();
@@ -489,10 +516,92 @@ function adicionaProdutoVendaLeitor(product_id)
   produtosDaVenda();
 }
 
+function salvarCliente()
+{
+  $cliente = $("#nome_cliente").val();
+  $telefone = $("#telefone_cliente").val();
+
+  db.transaction(function(tx){
+
+    tx.executeSql("INSERT INTO cliente(nome,telefone) VALUES('"+$cliente+"', '"+$telefone+"')",[], function(tx1,result){
+
+    });
 
 
-</script>
+  });
+
+  selectCliente();
+  $("#modalCliente").modal('toggle');
+
+}
+
+function moeda(a, e, r, t) {
+  let n = ""
+  , h = j = 0
+  , u = tamanho2 = 0
+  , l = ajd2 = ""
+  , o = window.Event ? t.which : t.keyCode;
+  if (13 == o || 8 == o)
+  return !0;
+  if (n = String.fromCharCode(o),
+  -1 == "0123456789".indexOf(n))
+  return !1;
+  for (u = a.value.length,
+    h = 0; h < u && ("0" == a.value.charAt(h) || a.value.charAt(h) == r); h++)
+    ;
+    for (l = ""; h < u; h++)
+    -1 != "0123456789".indexOf(a.value.charAt(h)) && (l += a.value.charAt(h));
+    if (l += n,
+      0 == (u = l.length) && (a.value = ""),
+      1 == u && (a.value = "0" + r + "0" + l),
+      2 == u && (a.value = "0" + r + l),
+      u > 2) {
+        for (ajd2 = "",
+        j = 0,
+        h = u - 3; h >= 0; h--)
+        3 == j && (ajd2 += e,
+          j = 0),
+          ajd2 += l.charAt(h),
+          j++;
+          for (a.value = "",
+          tamanho2 = ajd2.length,
+          h = tamanho2 - 1; h >= 0; h--)
+          a.value += ajd2.charAt(h);
+          a.value += r + l.substr(u - 2, u)
+        }
+        return !1
+      }
+
+      function selectCliente()
+      {
+
+        db.transaction(function(tx){
+
+          tx.executeSql("SELECT * FROM cliente",[],function(tx1,result){
+            var len = result.rows.length;
+            var $select = '<select title="Selecione" name="cliente" id="cliente" class="" data-live-search="true"><option value=""></option>';
+
+            for (var i=0; i<len; i++){
+              var cliente = result.rows.item(i);
+
+              $select += '<option value="'+cliente.id+'">'+cliente.nome+' - '+cliente.telefone+'</option>';
+
+            }
+
+            $select += "</select>";
+
+            $("#td-cliente").html($select);
+            $('#cliente').selectpicker();
+
+          });
+        });
+
+      }
 
 
 
-</html>
+      </script>
+
+
+
+      </html>

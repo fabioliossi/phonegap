@@ -99,9 +99,9 @@ function verificaKitDisponivel($user)
 
   // $url = 'http://vendadireta.grupoornatus.com/api/getAvailableKit/'+$user;
 
-  $url = 'http://vendadireta.grupoornatus.com/api/getAvailableKitToPay/'+$user;
+   $url = 'http://vendadireta.grupoornatus.com/api/getAvailableKitToPay/'+$user;
 
-   //$url = 'http://localhost/venda_direta/public/api/getAvailableKitToPay/'+$user;
+   $url = 'http://localhost/venda_direta/public/api/getAvailableKitToPay/'+$user;
 
   swal({
     title: "Aguarde",
@@ -203,13 +203,13 @@ function enviarDados($kit)
     $url_send_saleproduct = 'http://vendadireta.grupoornatus.com/api/sendSaleProduct/'+$kit+'/'+$user_id;
 
 
-     //$url = 'http://localhost/venda_direta/public/api/getProductsByKit/'+$kit;
+  //   $url = 'http://localhost/venda_direta/public/api/getProductsByKit/'+$kit;
 
-    //$url_send = 'http://localhost/venda_direta/public/api/sendSales/'+$kit+'/'+$user_id;
+//    $url_send = 'http://localhost/venda_direta/public/api/sendSales/'+$kit+'/'+$user_id;
 
-    //$url_send_saleproduct = 'http://localhost/venda_direta/public/api/sendSaleProduct/'+$kit+'/'+$user_id;
+  //  $url_send_saleproduct = 'http://localhost/venda_direta/public/api/sendSaleProduct/'+$kit+'/'+$user_id;
 
-    tx.executeSql("SELECT '"+$user_id+"' as user_id, id, data_criacao,data_finalizacao,finalizada FROM venda WHERE finalizada='S';",[],function(tx1,result){
+    tx.executeSql("SELECT '"+$user_id+"' as user_id, id, data_criacao,data_finalizacao,finalizada, cliente_id, valor_pago FROM venda WHERE finalizada='S';",[],function(tx1,result){
 
       $vendas= JSON.stringify(result.rows);
     });
@@ -217,6 +217,12 @@ function enviarDados($kit)
     tx.executeSql("SELECT * FROM venda_produto WHERE ativo=1;",[],function(tx1,result){
 
       $produtos= JSON.stringify(result.rows);
+
+    });
+
+    tx.executeSql("SELECT (SELECT user_id FROM user LIMIT 1) as user_id, id, nome, telefone FROM cliente;",[],function(tx1,result){
+
+      $clientes= JSON.stringify(result.rows);
 
     });
 
@@ -231,7 +237,7 @@ function enviarDados($kit)
       url: $url_send,
       type: 'GET',
       async:false,
-      data: { produtos:$produtos, vendas:$vendas  },
+      data: { produtos:$produtos, vendas:$vendas, clientes:$clientes  },
       success: function(data, textStatus, xhr)
       {
         if(data == 'true')
@@ -242,6 +248,10 @@ function enviarDados($kit)
             type: "info",
             showCancelButton: false,
             showConfirmButton:true
+          }, function(){
+
+            voltarDashboard();
+
           });
 
         //  window.location.replace('./dashboard.html');
