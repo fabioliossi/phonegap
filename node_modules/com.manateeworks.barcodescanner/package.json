@@ -1,0 +1,65 @@
+{
+  "_from": "com.manateeworks.barcodescanner",
+  "_id": "com.manateeworks.barcodescanner@1.8.1",
+  "_inBundle": false,
+  "_integrity": "sha1-JrlOBLd4LnMzf1XFWaXSrq9E2mA=",
+  "_location": "/com.manateeworks.barcodescanner",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "com.manateeworks.barcodescanner",
+    "name": "com.manateeworks.barcodescanner",
+    "escapedName": "com.manateeworks.barcodescanner",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/com.manateeworks.barcodescanner/-/com.manateeworks.barcodescanner-1.8.1.tgz",
+  "_shasum": "26b94e04b7782e73337f55c559a5d2aeaf44da60",
+  "_spec": "com.manateeworks.barcodescanner",
+  "_where": "C:\\xampp\\htdocs\\phonegap",
+  "author": {
+    "name": "Manatee Works"
+  },
+  "bugs": {
+    "url": "https://github.com/manateeworks/phonegap-mwbarcodescanner/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "com.manateeworks.barcodescanner",
+    "platforms": [
+      "android",
+      "ios",
+      "wp8"
+    ]
+  },
+  "deprecated": false,
+  "description": "Manatee Works Barcode Scanner Plugin",
+  "homepage": "https://github.com/manateeworks/phonegap-mwbarcodescanner#readme",
+  "keywords": [
+    "phonegap",
+    "barcode",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-wp8"
+  ],
+  "license": "MIT",
+  "name": "com.manateeworks.barcodescanner",
+  "nativescript": {
+    "platforms": {
+      "ios": "1.0.0",
+      "android": "1.1.0"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manateeworks/phonegap-mwbarcodescanner.git"
+  },
+  "version": "1.8.1"
+}

@@ -4,20 +4,8 @@
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout-land\\share.xml"
     },
     {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_help.xml.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout\\help.xml"
-    },
-    {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-ldpi_icon.png.flat",
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\mipmap-ldpi\\icon.png"
-    },
-    {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-mdpi_screen.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-port-mdpi\\screen.png"
-    },
-    {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_search_book_contents.xml.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout\\search_book_contents.xml"
     },
     {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\menu_history.xml.flat",
@@ -28,36 +16,20 @@
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable\\launcher_icon.png"
     },
     {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-hdpi_screen.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-port-hdpi\\screen.png"
-    },
-    {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-xxhdpi_screen.png.flat",
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-port-xxhdpi\\screen.png"
-    },
-    {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_share_via_barcode.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable\\share_via_barcode.png"
-    },
-    {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-land_encode.xml.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout-land\\encode.xml"
     },
     {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_launcher_icon.png.flat",
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-xhdpi\\launcher_icon.png"
     },
     {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_icon.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\icon.png"
-    },
-    {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-xhdpi_screen.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-land-xhdpi\\screen.png"
-    },
-    {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml_preferences.xml.flat",
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\xml\\preferences.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_flashbuttonoff.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable\\flashbuttonoff.png"
     },
     {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_history_list_item.xml.flat",
@@ -68,10 +40,6 @@
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-land-xxhdpi\\screen.png"
     },
     {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_icon.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\mipmap-hdpi\\icon.png"
-    },
-    {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-xxxhdpi_screen.png.flat",
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-land-xxxhdpi\\screen.png"
     },
@@ -80,16 +48,8 @@
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\shopper_icon.png"
     },
     {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml_camera_provider_paths.xml.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\xml\\camera_provider_paths.xml"
-    },
-    {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml_config.xml.flat",
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\xml\\config.xml"
-    },
-    {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_icon.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\mipmap-xhdpi\\icon.png"
     },
     {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_bookmark_picker_list_item.xml.flat",
@@ -100,12 +60,96 @@
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-port-ldpi\\screen.png"
     },
     {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-xxxhdpi_screen.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-port-xxxhdpi\\screen.png"
-    },
-    {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\menu_encode.xml.flat",
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\menu\\encode.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_search_book_contents_header.xml.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout\\search_book_contents_header.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\menu_capture.xml.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\menu\\capture.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_launcher_icon.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\launcher_icon.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_icon.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\icon.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shopper_icon.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable\\shopper_icon.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\raw_beep.ogg.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\raw\\beep.ogg"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-xhdpi_screen.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-port-xhdpi\\screen.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_overlay_mw.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable\\overlay_mw.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_help.xml.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout\\help.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-mdpi_screen.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-port-mdpi\\screen.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_search_book_contents.xml.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout\\search_book_contents.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-hdpi_screen.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-port-hdpi\\screen.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_flashbuttonon.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable\\flashbuttonon.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_share_via_barcode.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable\\share_via_barcode.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-land_encode.xml.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout-land\\encode.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_icon.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\icon.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-xhdpi_screen.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-land-xhdpi\\screen.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_scanner.xml.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout\\scanner.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_icon.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\mipmap-hdpi\\icon.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml_camera_provider_paths.xml.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\xml\\camera_provider_paths.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_icon.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\mipmap-xhdpi\\icon.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-xxxhdpi_screen.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-port-xxxhdpi\\screen.png"
     },
     {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-ldpi_screen.png.flat",
@@ -124,10 +168,6 @@
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout\\capture.xml"
     },
     {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_search_book_contents_header.xml.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout\\search_book_contents_header.xml"
-    },
-    {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_encode.xml.flat",
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout\\encode.xml"
     },
@@ -140,39 +180,23 @@
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\mipmap-mdpi\\icon.png"
     },
     {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\menu_capture.xml.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\menu\\capture.xml"
-    },
-    {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-ldpi_capture.xml.flat",
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout-ldpi\\capture.xml"
-    },
-    {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_icon.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\icon.png"
     },
     {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_launcher_icon.png.flat",
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\launcher_icon.png"
     },
     {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_launcher_icon.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-xxhdpi\\launcher_icon.png"
-    },
-    {
         "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_share.xml.flat",
         "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\layout\\share.xml"
     },
     {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shopper_icon.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable\\shopper_icon.png"
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_zoom.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable\\zoom.png"
     },
     {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\raw_beep.ogg.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\raw\\beep.ogg"
-    },
-    {
-        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-xhdpi_screen.png.flat",
-        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-port-xhdpi\\screen.png"
+        "merged": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_overlay_mw.png.flat",
+        "source": "C:\\xampp\\htdocs\\phonegap\\platforms\\android\\app\\src\\main\\res\\drawable-hdpi\\overlay_mw.png"
     }
 ]

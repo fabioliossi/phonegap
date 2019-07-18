@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
     abi="x86"
-    api-level="23"
+    api-level="28"
     build-mode="FULL"
-    density="420dpi"
+    density="xhdpi"
     format="10"
     plugin-version="3.0.1"
-    timestamp="1563219831329"
+    timestamp="1563474901422"
     token="-2295763241585124487"
     verifier="FULL_BUILD_REQUESTED" >
 
@@ -18,31 +18,28 @@
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="4679" />
+        duration="0" />
     <task
         name="verifier"
         duration="0" />
 
     <artifact
-        location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
-        type="SPLIT" />
-    <artifact
-        location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+        location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
         type="SPLIT" />
     <artifact
         location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
         type="SPLIT" />
     <artifact
-        location="C:\xampp\htdocs\phonegap\platforms\android\app\build\outputs\apk\debug\app-debug.apk"
-        type="SPLIT_MAIN" />
-    <artifact
-        location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
-        type="SPLIT" />
-    <artifact
         location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
         type="SPLIT" />
     <artifact
+        location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+        type="SPLIT" />
+    <artifact
         location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
         type="SPLIT" />
     <artifact
         location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
@@ -59,31 +56,31 @@
     <artifact
         location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
         type="SPLIT" />
+    <artifact
+        location="C:\xampp\htdocs\phonegap\platforms\android\app\build\outputs\apk\debug\app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1563219831329"
+        timestamp="1563474901422"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
             type="SPLIT" />
         <artifact
             location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
             type="SPLIT" />
         <artifact
-            location="C:\xampp\htdocs\phonegap\platforms\android\app\build\outputs\apk\debug\app-debug.apk"
-            type="SPLIT_MAIN" />
-        <artifact
-            location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
             type="SPLIT" />
         <artifact
+            location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            type="SPLIT" />
+        <artifact
             location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
         <artifact
             location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
@@ -100,6 +97,9 @@
         <artifact
             location="C:\xampp\htdocs\phonegap\platforms\android\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
             type="SPLIT" />
+        <artifact
+            location="C:\xampp\htdocs\phonegap\platforms\android\app\build\outputs\apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
 
 </instant-run>
