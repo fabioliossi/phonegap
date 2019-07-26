@@ -55,8 +55,8 @@ function sync()
   },// Caso Sucesso
   function()
   {
-     // var $url_send = 'http://vendadireta.grupoornatus.com/api/syncSales/'+$kit_id+'/'+$user_id;
-    var $url_send = 'http://localhost/venda_direta/public/api/syncSales/'+$kit_id+'/'+$user_id;
+      var $url_send = 'http://vendadireta.grupoornatus.com/api/syncSales/'+$kit_id+'/'+$user_id;
+  //  var $url_send = 'http://localhost/venda_direta/public/api/syncSales/'+$kit_id+'/'+$user_id;
 
     $.ajax({
       url: $url_send,
